@@ -19,3 +19,5 @@
 /Users/archiefmiller/Desktop/Unity/Arena/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/archiefmiller/Desktop/Unity/Arena/obj/Debug/Assembly-CSharp.dll
 /Users/archiefmiller/Desktop/Unity/Arena/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/archiefmiller/Desktop/Unity/Arena/Temp/bin/Debug/UnityEngine.Advertisements.dll
+/Users/archiefmiller/Desktop/Unity/Arena/Temp/bin/Debug/UnityEngine.Purchasing.dll

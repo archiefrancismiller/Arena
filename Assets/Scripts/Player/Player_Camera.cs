@@ -1,4 +1,11 @@
-﻿
+﻿// P L A Y E R _ C A M E R A
+
+// Handles mouselook
+// Adjusts camera pitch and Character Controller rotation in response to MouseXY input
+// Attach to the Main Camera
+// The Main Camera should be a child of the Character Controller
+// Assign the parent Character Controller to the characterBody field
+
 using UnityEngine;
 
 [AddComponentMenu("Camera/Simple Smooth Mouse Look ")]
@@ -12,7 +19,8 @@ public class Player_Camera : MonoBehaviour
 	public Vector2 targetDirection;
 	public Vector2 targetCharacterDirection;
 
-	// Assign the camera's parent Character Controller. Yaw rotation will affect this object instead of the camera.
+	// Assign the camera's parent Character Controller
+	// Yaw rotation will affect this object instead of the camera.
 	public GameObject characterBody;
 
 	void Start()
