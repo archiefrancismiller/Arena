@@ -1,7 +1,5 @@
 ﻿// P L A Y E R _ M O V E
-
 // Handles player locomotion
-// Applies physics forces to the Character Controller in response to input
 // Attach to the Character Controller
 
 using System.Collections;
@@ -10,9 +8,11 @@ using UnityEngine;
 
 public class Player_Move : MonoBehaviour
 {
+	// Initialize variables
 	public Rigidbody rb;									// The Character Controller's rigidbody component
 	Vector3 Motionless = (new Vector3 (0f, 0f, 0f));		// Constant; velocity 0
 	Vector3 movement;
+
 	public float gravityConstant = -9.81f;					// Simulated gravitational force
 	public float frictionCoefficient = 0.66f;				// Coefficient of friction (applied when grounded)
 	public float dragCoefficient = 0.33f;					// Coefficient of air drag (applied when !grounded)
@@ -21,7 +21,6 @@ public class Player_Move : MonoBehaviour
 	public float moveForce = 3f;							// Base movement force
 	public float strafeModifier = 1.33f;					// Scales horizontal movement speed
 	public float jumpForce = 30f;							// Jump force
-
 
 	private float horizontalInput;							// Stores raw Horizontal (AD) input
 	private float verticalInput;							// Stores raw Vertical (SW) input
@@ -45,11 +44,13 @@ public class Player_Move : MonoBehaviour
 		horizontalInput = Input.GetAxisRaw ("Horizontal") * strafeModifier;
 		verticalInput = Input.GetAxisRaw ("Vertical");
 
-		// Cast a ray towards the ground to see if the Walker is grounded
+		// Cast a ray towards the ground to see if the Character Controller is grounded
 		bool grounded = Physics.Raycast(transform.position, Vector3.down, groundRay);
 
+		// If Jump input is received while grounded...
 		if (Input.GetButtonDown ("Jump") && grounded)
 		{
+			// Apply jump force
 			rb.velocity += jumpForce * Vector3.up;
 		}
 	}
@@ -57,18 +58,18 @@ public class Player_Move : MonoBehaviour
 	// Called every physics frame (stepped)
 	void FixedUpdate ()
 	{
-		// Store an alternate version of processed WASD input with drag applied
+		// Apply drag to WASD input and store separately; this is used to create the Vector3 for (!grounded) movement
 		airHorizontalInput = horizontalInput * dragCoefficient;
 		airVerticalInput = verticalInput * dragCoefficient;
 
 		// Cast a ray towards the ground to see if the Walker is grounded
 		bool grounded = Physics.Raycast(transform.position, Vector3.down, groundRay);
 
-		// If the Character Controller is (grounded), apply force in response to WASD and Jump input
+		// If the Character Controller is (grounded), apply movement force in response to WASD input
 		if (grounded)
 		{
-			// Print grounding status to log
-			Debug.Log ("Grounded");
+			// Print grounded status to log
+	//		Debug.Log ("grounded");
 
 			// Create the Vector3 for (grounded) movement
 			Vector3 movement = (new Vector3 (horizontalInput, 0.0f, verticalInput));
@@ -84,8 +85,8 @@ public class Player_Move : MonoBehaviour
 		else
 		{
 
-			// Print grounding status to log
-			Debug.Log ("Not grounded");
+			// Print grounded status to log
+	//		Debug.Log ("!grounded");
 
 			// Create the Vector3 for (!grounded) movement
 			Vector3 airMovement = (new Vector3 (airHorizontalInput, gravityConstant, airVerticalInput));
